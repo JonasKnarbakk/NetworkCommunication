@@ -85,13 +85,16 @@ int main( int argc, char ** argv ){
     
     }
 
-    std::cout << "Text to send: ";
+    // Zero out the buffer
+    memset(buffer, 0, sizeof(buffer));
+
+    std::cout << "Text to send (max 255 characters): ";
 
     // Get input from the user
     std::cin.getline(buffer, 255);
 
     // Send data to the server
-    read_write_size = write(tcp_socket, buffer, strlen(buffer));
+    read_write_size = write(tcp_socket, buffer, 255);
     
     if(read_write_size < 0){
         error("ERROR: couldn't write to socket\n");
@@ -101,11 +104,16 @@ int main( int argc, char ** argv ){
     memset(buffer, 0, sizeof(buffer));
 
     // Read the response from the server
-    read_write_size = read(tcp_socket, buffer, sizeof(buffer)-1);
+    read_write_size = read(tcp_socket, buffer, 255);
 
     if(read_write_size < 0){
         error("ERROR: couldn't read from socket\n");
     }
-   
+
+    std::cout << buffer << std::endl;
+
+    close(tcp_socket);
+    
     return 0;
+
 } 

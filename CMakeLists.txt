@@ -13,7 +13,7 @@ ADD_SUBDIRECTORY(Client)
 
 # Create som custom makefile commands to run the binaries easier
 ADD_CUSTOM_TARGET(run-client) 
-ADD_CUSTOM_COMMAND(TARGET run-client COMMAND ./bin/Client) 
+ADD_CUSTOM_COMMAND(TARGET run-client COMMAND ./bin/Client localhost 7145) 
 
 ADD_CUSTOM_TARGET(run-server) 
-ADD_CUSTOM_COMMAND(TARGET run-server COMMAND ./bin/Server) 
+ADD_CUSTOM_COMMAND(TARGET run-server COMMAND ./bin/Server 7145) 
