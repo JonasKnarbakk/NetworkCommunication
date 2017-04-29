@@ -4,6 +4,9 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
 # Set the project name
 PROJECT (NetworkCommunication)
 
+# Set the compiler flags
+set (CMAKE_CXX_FLAGS "-O0 -g -Wall -Wextra")
+
 # Add subdirectories that contain CMakeLists.txt
 ADD_SUBDIRECTORY(Server)
 ADD_SUBDIRECTORY(Client)
