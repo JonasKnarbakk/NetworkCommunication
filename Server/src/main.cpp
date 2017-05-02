@@ -150,7 +150,17 @@ void handleClient(int tcp_socket){
 
     }
 
-    int content_size = std::stoi(buffer);
+    std::string temp_buffer = buffer;
+
+    std::size_t csv = temp_buffer.find(",");
+
+    std::string file_size = temp_buffer.substr(0, csv);
+    std::string filename = temp_buffer.substr(csv+1);
+
+    std::cout << "File size recieved is: " << file_size << std::endl;
+    std::cout << "Filename recieved is: " << filename << std::endl;
+
+    int content_size = std::stoi(file_size);
 
     char content_buffer[content_size];
 
@@ -164,7 +174,7 @@ void handleClient(int tcp_socket){
 
     std::ofstream file;
 
-    file.open("RecievedFile.png");
+    file.open(filename);
 
     if(file.is_open()){
          

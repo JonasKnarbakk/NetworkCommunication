@@ -115,18 +115,7 @@ int Connection::sendFile(std::string filepath){
     
     }
 
-    // Send size info to the server
-    char size_info[100];
-
-    memset(size_info, 0, sizeof(size_info));
-
-    memcpy(size_info, std::to_string(buffer_size).c_str(), strlen(std::to_string(buffer_size).c_str()));
-
-    read_write_size = write(tcp_socket, size_info, sizeof(size_info));
-   
-    if(read_write_size < 0){
-        error("ERROR: couldn't write to socket\n");
-    }
+    sendHeaderInfo(std::to_string(buffer_size).c_str(), filepath.c_str());
 
     read_write_size = write(tcp_socket, buffer, sizeof(buffer));
 
@@ -144,4 +133,21 @@ int Connection::sendFile(std::string filepath){
 
     close(tcp_socket);
     return 0;
+}
+
+int Connection::sendHeaderInfo(const char *file_size, const char *filename){
+
+    char header_info[100];
+
+    memset(header_info, 0, sizeof(header_info));
+
+    strcat(header_info, file_size);
+    strcat(header_info, ",");
+    strcat(header_info, filename);
+
+    read_write_size = write(tcp_socket, header_info, sizeof(header_info));
+   
+    if(read_write_size < 0){
+        error("ERROR: couldn't write to socket\n");
+    }
 }

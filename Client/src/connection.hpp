@@ -25,6 +25,8 @@ class Connection{
 
         struct sockaddr_in server_address;
         struct hostent *server;
+
+        int sendHeaderInfo(const char *file_size, const char *filename);
 };
 
 #endif
