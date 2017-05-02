@@ -8,7 +8,7 @@
 INCLUDE_DIRECTORIES(${NetworkCommunication_SOURCE_DIR}/Client/headers)
 INCLUDE_DIRECTORIES(${NetworkCommunication_SOURCE_DIR}/Client/src)
 
-ADD_EXECUTABLE(Client main.cpp)
+ADD_EXECUTABLE(Client main.cpp connection.cpp)
 
 SET_TARGET_PROPERTIES( Client
     PROPERTIES
