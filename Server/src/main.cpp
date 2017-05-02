@@ -2,6 +2,7 @@
 // Description: New project
 
 #include <iostream>
+#include <fstream>
 #include <cstdlib>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -137,11 +138,11 @@ void handleClient(int tcp_socket){
 
     int read_write_size = 0;
 
-    char buffer[256];
+    char buffer[100];
 
     memset(buffer, 0, sizeof(buffer));
 
-    read_write_size += read(tcp_socket, buffer, 255);
+    read_write_size = read(tcp_socket, buffer, sizeof(buffer));
 
     if(read_write_size < 0){
 
@@ -149,7 +150,31 @@ void handleClient(int tcp_socket){
 
     }
 
-    std::cout << "Recieved message: " << buffer << std::endl;
+    int content_size = std::stoi(buffer);
+
+    char content_buffer[content_size];
+
+    read_write_size = read(tcp_socket, content_buffer, sizeof(content_buffer));
+
+    if(read_write_size < 0){
+
+        error("ERROR: couldn't read from socket!\n");
+
+    }
+
+    std::ofstream file;
+
+    file.open("RecievedFile.png");
+
+    if(file.is_open()){
+         
+        file.write(content_buffer, content_size); 
+
+    } else {
+        
+        std::cout << "Failed to open file" << std::endl;
+
+    }
 
     memset(buffer, 0, sizeof(buffer));
 

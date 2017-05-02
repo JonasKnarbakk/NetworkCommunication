@@ -10,11 +10,13 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <cstring>
+
 class Connection{
     public:
         Connection(std::string server_address, unsigned int port_number);
 
         void sendToServer(const char *message);
+        int sendFile(std::string filepath);
     private:
         int tcp_socket,
             read_write_size;

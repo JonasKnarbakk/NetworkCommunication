@@ -7,5 +7,6 @@
 
 int main(){
     Connection con("localhost", 7145);
-    con.sendToServer("Hello!");
+    // con.sendToServer("Hello!");
+    con.sendFile("test-image.png"); 
 } 
