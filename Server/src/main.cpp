@@ -143,8 +143,6 @@ void handleClient(int tcp_socket){
 
     read_write_size += read(tcp_socket, buffer, 255);
 
-    std::cout << read_write_size << std::endl;
-
     if(read_write_size < 0){
 
         error("ERROR: couldn't read from socket!\n");
